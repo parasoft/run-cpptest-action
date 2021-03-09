@@ -1,0 +1,35 @@
+name: C/C++test with Make
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+  
+jobs:
+  run-cpptest-make:
+    name: Analyze project with C/C++test
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Build project
+      run: cpptesttrace make clean all
+
+    - name: Run static analysis
+      run: cpptestcli -compiler gcc_7-64 -config "builtin://Recommended Rules" -module . -property report.format=sarif,xml,html -input cpptestscan.bdf
+    
+    # - name: Upload results (Sarif)
+    #   uses: github/codeql-action/upload-sarif@v1
+    #   with:
+    #     sarif_file: reports/report.sarif
+ 
+    - name: Archive reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: Static analysis reports
+        path: reports/*.*

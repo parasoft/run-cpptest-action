@@ -1,0 +1,54 @@
+{
+  "name": "run-cpptest-action",
+  "version": "0.0.1b",
+  "private": true,
+  "description": "A GitHub Action for running Parasoft C/C++test analysis",
+  "main": "lib/main.js",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint --ext .ts .",
+    "package": "ncc build --license licenses.txt && copyfiles --flat ./src/messages/*.json ./dist/messages",
+    "clean": "rimraf dist",
+    "all": "npm run clean && npm run compile && npm run lint && npm run package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parasoft/run-cpptest-action.git"
+  },
+  "author": {
+    "name": "Parasoft Corp.",
+    "url": "https://github.com/parasoft"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/parasoft/run-cpptest-action/issues"
+  },
+  "homepage": "https://github.com/parasoft/run-cpptest-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4",
+    "@actions/github": "^4.0.0",
+    "@actions/http-client": "1.0.9",
+    "@actions/io": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^12.11.7",
+    "@types/sinon": "^9.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "@vercel/ncc": "^0.27.0",
+    "chai": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.19.0",
+    "fs-extra": "^9.1.0",
+    "mocha": "^8.2.1",
+    "sinon": "^9.2.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "typescript-eslint": "0.0.1-alpha.0",
+    "copyfiles": "^2.4.1"
+  }
+}

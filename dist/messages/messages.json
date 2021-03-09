@@ -1,0 +1,12 @@
+{
+    "run_started": "Running C/C++test...",
+    "run_failed": "Failed to run C/C++test",
+    "exit_code": "Exit code: ",
+    "failed_run_non_zero": "C/C++test run failed with a non-zero exit code: ",    
+
+    "wrk_dir_label": "Working directory: ",
+    "wrk_dir_not_exist": "Working directory does not exist: ",
+
+    "cmd_label": "Command line: ",
+    "cmd_cannot_be_empty": "Command line cannot be empty."
+}
