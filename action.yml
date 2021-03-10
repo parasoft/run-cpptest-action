@@ -10,7 +10,7 @@ inputs:
     required: false
     default: '-compiler gcc_7-64 -config "builtin://Recommended Rules" -module . -property report.format=sarif,xml,html -input build/compile_commands.json'
   workingDir:
-    description: 'Path to working directory. If not specified, ${{ github.workspace }} will be used.'
+    description: 'Path to working directory. If not specified, $github.workspace will be used.'
     required: false
     default: ${{ github.workspace }}
   installDir:
