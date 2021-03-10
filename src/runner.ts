@@ -43,8 +43,8 @@ export class AnalysisRunner
             const cliEnv = this.createEnvironment();
             const cliProcess = cp.spawn(`${commandLine}`, { cwd: runOptions.workingDir, env: cliEnv, shell: true, windowsHide: true });
 
-            cliProcess.stdout?.on('data', (data) => { core.info(`${data}`); });
-            cliProcess.stderr?.on('data', (data) => { core.info(`${data}`); });
+            cliProcess.stdout?.on('data', (data) => { core.info(`${data}`.replace(/\s+$/g, '')); });
+            cliProcess.stderr?.on('data', (data) => { core.info(`${data}`.replace(/\s+$/g, '')); });
             cliProcess.on('close', (code) => {
                 const result : RunDetails = {
                     exitCode : code,
