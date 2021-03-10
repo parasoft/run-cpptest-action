@@ -35,8 +35,7 @@ export class AnalysisRunner
             return Promise.reject(messages.cmd_cannot_be_empty);
         }
 
-        core.info(messages.wrk_dir_label + runOptions.workingDir);
-        core.info(messages.cmd_label + commandLine);
+        core.info(commandLine);
 
         const runPromise = new Promise<RunDetails>((resolve, reject) =>
         {
@@ -49,7 +48,6 @@ export class AnalysisRunner
                 const result : RunDetails = {
                     exitCode : code,
                 };
-                core.info(messages.exit_code + code.toString());
                 resolve(result);
             });
             cliProcess.on("error", (err) => { reject(err); });

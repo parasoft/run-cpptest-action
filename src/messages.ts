@@ -11,9 +11,7 @@ class Messages implements ISerializable<Messages>
     run_failed!: string;
     exit_code!: string;
     failed_run_non_zero!: string;
-    wrk_dir_label!: string;
     wrk_dir_not_exist!: string;
-    cmd_label!: string;
     cmd_cannot_be_empty!: string;
 
     deserialize(jsonPath: string) : Messages {

@@ -14,16 +14,19 @@ const messages_1 = __nccwpck_require__(112);
 const runner = __nccwpck_require__(209);
 async function run() {
     try {
-        core.info(messages_1.messages.run_started);
         const runOptions = {
             installDir: core.getInput("installDir", { required: false }),
             workingDir: core.getInput("workingDir", { required: false }),
             cliArgs: core.getInput("cliArgs", { required: false })
         };
+        core.info(messages_1.messages.run_started + runOptions.workingDir);
         const theRunner = new runner.AnalysisRunner();
         const outcome = await theRunner.run(runOptions);
         if (outcome.exitCode != 0) {
             core.setFailed(messages_1.messages.failed_run_non_zero + outcome.exitCode);
+        }
+        else {
+            core.info(messages_1.messages.exit_code + outcome.exitCode);
         }
     }
     catch (error) {
@@ -81,19 +84,17 @@ class AnalysisRunner {
         if (commandLine.length === 0) {
             return Promise.reject(messages_1.messages.cmd_cannot_be_empty);
         }
-        core.info(messages_1.messages.wrk_dir_label + runOptions.workingDir);
-        core.info(messages_1.messages.cmd_label + commandLine);
+        core.info(commandLine);
         const runPromise = new Promise((resolve, reject) => {
             var _a, _b;
             const cliEnv = this.createEnvironment();
             const cliProcess = cp.spawn(`${commandLine}`, { cwd: runOptions.workingDir, env: cliEnv, shell: true, windowsHide: true });
-            (_a = cliProcess.stdout) === null || _a === void 0 ? void 0 : _a.on('data', (data) => { core.info(`${data}`); });
-            (_b = cliProcess.stderr) === null || _b === void 0 ? void 0 : _b.on('data', (data) => { core.info(`${data}`); });
+            (_a = cliProcess.stdout) === null || _a === void 0 ? void 0 : _a.on('data', (data) => { core.info(`${data}`.replace(/\s+$/g, '')); });
+            (_b = cliProcess.stderr) === null || _b === void 0 ? void 0 : _b.on('data', (data) => { core.info(`${data}`.replace(/\s+$/g, '')); });
             cliProcess.on('close', (code) => {
                 const result = {
                     exitCode: code,
                 };
-                core.info(messages_1.messages.exit_code + code.toString());
                 resolve(result);
             });
             cliProcess.on("error", (err) => { reject(err); });
