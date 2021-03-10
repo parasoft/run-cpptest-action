@@ -12,14 +12,26 @@ export interface RunDetails
 
 export interface RunOptions
 {
-    /* Path to working directory. */
+    /* Working directory for running C/C++test. */
     workingDir: string;
 
-    /* Path to folder containing cpptestcli executable. */
+    /* Installation folder of Parasoft C/C++test. */
     installDir: string;
 
-    /* Command line arguments for cpptestcli executable. */
-    cliArgs: string;
+    /* Identifier of a compiler configuration. */
+    compilerConfig: string;
+
+    /* Test configuration to be used when running code analysis. */
+    testConfig: string;
+
+    /* Output folder for analysis reports. */
+    reportDir: string;
+
+    /* Input scope for analysis - usually cpptestscan.bdf or compile_commands.json. */
+    input: string;
+
+    /* Command line pattern for running C/C++test. */
+    commandLinePattern: string
 }
 
 export class AnalysisRunner
@@ -62,7 +74,17 @@ export class AnalysisRunner
         if (runOptions.installDir) {
             cpptestcli = '"' + pt.join(runOptions.installDir, cpptestcli) + '"';
         }
-        return `${cpptestcli} ${runOptions.cliArgs}`;
+
+        const commandLine = `${runOptions.commandLinePattern}`.
+            replace('${cpptestcli}', `${cpptestcli}`).
+            replace('${workingDir}', `${runOptions.workingDir}`).
+            replace('${installDir}', `${runOptions.installDir}`).
+            replace('${compilerConfig}', `"${runOptions.compilerConfig}"`).
+            replace('${testConfig}', `"${runOptions.testConfig}"`).
+            replace('${reportDir}', `"${runOptions.reportDir}"`).
+            replace('${input}', `"${runOptions.input}"`);
+
+        return commandLine;
     }
 
     private createEnvironment() : NodeJS.ProcessEnv

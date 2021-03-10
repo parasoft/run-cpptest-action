@@ -5,17 +5,34 @@ branding:
   icon: 'aperture'
   color: 'blue'
 inputs:
-  cliArgs:
-    description: 'Command line arguments for cpptestcli executable.'
+  installDir:
+    description: 'Installation folder of Parasoft C/C++test. If not specified, cpptestcli executable will be searched on $PATH.'
     required: false
-    default: '-compiler gcc_7-64 -config "builtin://Recommended Rules" -module . -property report.format=sarif,xml,html -input build/compile_commands.json'
   workingDir:
-    description: 'Path to working directory. If not specified, $github.workspace will be used.'
+    description: 'Working directory for running C/C++test.'
     required: false
     default: ${{ github.workspace }}
-  installDir:
-    description: 'Path to folder containing cpptestcli executable. If not specified, cpptestcli executable will be searched on $PATH.'
+  compilerConfig:
+    description: 'Identifier of a compiler configuration. Ensure you specify the configuration that matches your compiler.'
     required: false
+    default: 'gcc_9-64' 
+  testConfig:
+    description: 'Test configuration to be used when running code analysis.'
+    required: false
+    default: 'builtin://Recommended Rules'
+  reportDir:
+    description: 'Output folder for analysis reports.'
+    required: false
+    default: 'reports'
+  input:
+    description: 'Input scope for analysis - usually cpptestscan.bdf or compile_commands.json.'
+    required: false
+    default: 'cpptestscan.bdf'
+  commandLinePattern: 'Command line pattern for running C/C++test.'
+    description:
+    required: false
+    default: '${cpptestcli} -compiler ${compilerConfig} -config ${testConfig} -report ${reportDir} -module . -input ${input}'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'

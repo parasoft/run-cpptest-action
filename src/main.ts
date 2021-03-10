@@ -9,7 +9,11 @@ export async function run() {
         const runOptions: runner.RunOptions = {
             installDir: core.getInput("installDir", { required: false }),
             workingDir: core.getInput("workingDir", { required: false }),
-            cliArgs: core.getInput("cliArgs", { required: false })
+            compilerConfig: core.getInput("compilerConfig", { required: false }),
+            testConfig: core.getInput("testConfig", { required: false }),
+            reportDir: core.getInput("reportDir", { required: false }),
+            input: core.getInput("input", { required: false }),
+            commandLinePattern: core.getInput("commandLinePattern", { required: false }),
         };
 
         core.info(messages.run_started + runOptions.workingDir);
