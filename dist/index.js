@@ -20,6 +20,7 @@ async function run() {
             compilerConfig: core.getInput("compilerConfig", { required: false }),
             testConfig: core.getInput("testConfig", { required: false }),
             reportDir: core.getInput("reportDir", { required: false }),
+            reportFormat: core.getInput("reportFormat", { required: false }),
             input: core.getInput("input", { required: false }),
             commandLinePattern: core.getInput("commandLinePattern", { required: false }),
         };
@@ -114,10 +115,11 @@ class AnalysisRunner {
             replace('${cpptestcli}', `${cpptestcli}`).
             replace('${workingDir}', `${runOptions.workingDir}`).
             replace('${installDir}', `${runOptions.installDir}`).
-            replace('${compilerConfig}', `"${runOptions.compilerConfig}"`).
-            replace('${testConfig}', `"${runOptions.testConfig}"`).
-            replace('${reportDir}', `"${runOptions.reportDir}"`).
-            replace('${input}', `"${runOptions.input}"`);
+            replace('${compilerConfig}', `${runOptions.compilerConfig}`).
+            replace('${testConfig}', `${runOptions.testConfig}`).
+            replace('${reportDir}', `${runOptions.reportDir}`).
+            replace('${reportFormat}', `${runOptions.reportFormat}`).
+            replace('${input}', `${runOptions.input}`);
         return commandLine;
     }
     createEnvironment() {

@@ -27,6 +27,9 @@ export interface RunOptions
     /* Output folder for analysis reports. */
     reportDir: string;
 
+    /* Format of analysis reports. */
+    reportFormat: string;
+
     /* Input scope for analysis - usually cpptestscan.bdf or compile_commands.json. */
     input: string;
 
@@ -79,10 +82,11 @@ export class AnalysisRunner
             replace('${cpptestcli}', `${cpptestcli}`).
             replace('${workingDir}', `${runOptions.workingDir}`).
             replace('${installDir}', `${runOptions.installDir}`).
-            replace('${compilerConfig}', `"${runOptions.compilerConfig}"`).
-            replace('${testConfig}', `"${runOptions.testConfig}"`).
-            replace('${reportDir}', `"${runOptions.reportDir}"`).
-            replace('${input}', `"${runOptions.input}"`);
+            replace('${compilerConfig}', `${runOptions.compilerConfig}`).
+            replace('${testConfig}', `${runOptions.testConfig}`).
+            replace('${reportDir}', `${runOptions.reportDir}`).
+            replace('${reportFormat}', `${runOptions.reportFormat}`).
+            replace('${input}', `${runOptions.input}`);
 
         return commandLine;
     }

@@ -12,6 +12,7 @@ export async function run() {
             compilerConfig: core.getInput("compilerConfig", { required: false }),
             testConfig: core.getInput("testConfig", { required: false }),
             reportDir: core.getInput("reportDir", { required: false }),
+            reportFormat: core.getInput("reportFormat", { required: false }),
             input: core.getInput("input", { required: false }),
             commandLinePattern: core.getInput("commandLinePattern", { required: false }),
         };

@@ -24,14 +24,18 @@ inputs:
     description: 'Output folder for analysis reports.'
     required: false
     default: 'reports'
+  reportFormat:
+    description: 'Format of analysis reports.'
+    required: false
+    default: 'xml,html,sarif'
   input:
     description: 'Input scope for analysis - usually cpptestscan.bdf or compile_commands.json.'
     required: false
     default: 'cpptestscan.bdf'
   commandLinePattern:
     description: 'Command line pattern for running C/C++test.'
-    required: false
-    default: '${cpptestcli} -compiler ${compilerConfig} -config ${testConfig} -report ${reportDir} -module . -input ${input}'
+    required: false 
+    default: '${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}"'
 runs:
   using: 'node12'
   main: 'dist/index.js'
