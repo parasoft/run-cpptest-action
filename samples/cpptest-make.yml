@@ -21,9 +21,7 @@ jobs:
       run: cpptesttrace make clean all
 
     - name: Run C/C++test
-      uses: parasoft/run-cpptest-action@0.1.6-alpha
-      with:
-        installDir: /opt/parasoft/cpptest
+      uses: parasoft/run-cpptest-action@0.1.7-alpha
 
     - name: Upload results (Sarif)
       uses: github/codeql-action/upload-sarif@v1

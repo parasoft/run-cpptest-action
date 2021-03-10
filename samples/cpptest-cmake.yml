@@ -24,9 +24,8 @@ jobs:
       run: cmake --build build
 
     - name: Run C/C++test
-      uses: parasoft/run-cpptest-action@0.1.6-alpha
+      uses: parasoft/run-cpptest-action@0.1.7-alpha
       with:
-        installDir: /opt/parasoft/cpptest
         input: build/compile_commands.json
 
     - name: Upload results (Sarif)
