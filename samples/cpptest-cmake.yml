@@ -23,13 +23,16 @@ jobs:
     - name: Build project (optional)
       run: cmake --build build
 
-    - name: Run static analysis
-      run: cpptestcli -compiler gcc_7-64 -config "builtin://Recommended Rules" -module . -property report.format=sarif,xml,html -input build/compile_commands.json
-    
-    # - name: Upload results (Sarif)
-    #   uses: github/codeql-action/upload-sarif@v1
-    #   with:
-    #     sarif_file: reports/report.sarif
+    - name: Run C/C++test
+      uses: parasoft/run-cpptest-action@0.1.6-alpha
+      with:
+        installDir: /opt/parasoft/cpptest
+        input: build/compile_commands.json
+
+    - name: Upload results (Sarif)
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: reports/report.sarif
  
     - name: Archive reports
       uses: actions/upload-artifact@v2
