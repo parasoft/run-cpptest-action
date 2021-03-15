@@ -214,4 +214,5 @@ The following inputs are available for this action:
 | `reportDir` | Output folder for the analysis reports. If not specified, report files will be created in `reports` folder.|
 | `reportFormat`| Format of the analysis reports. Default value is `xml,html,sarif`.|
 | `input` | Input scope for analysis - usually `cpptestscan.bdf` or `compile_commands.json` (depending on a project type and build system). Default value is `cpptestscan.bdf`.|
-| `commandLinePattern` | Command line pattern for running C/C++test. It should be modified for advanced scenarios only. Default value: `${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}"`|
+| `additionalParams` | Additional parameters for cpptestcli executable.|
+| `commandLinePattern` | Command line pattern for running C/C++test. It should be modified for advanced scenarios only. Default value: `${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}`|

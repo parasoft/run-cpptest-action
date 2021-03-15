@@ -14,6 +14,7 @@ export async function run() {
             reportDir: core.getInput("reportDir", { required: false }),
             reportFormat: core.getInput("reportFormat", { required: false }),
             input: core.getInput("input", { required: false }),
+            additionalParams: core.getInput("additionalParams", { required: false }),
             commandLinePattern: core.getInput("commandLinePattern", { required: false }),
         };
 

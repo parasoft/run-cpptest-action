@@ -33,6 +33,9 @@ export interface RunOptions
     /* Input scope for analysis - usually cpptestscan.bdf or compile_commands.json. */
     input: string;
 
+    /* Additional parameters for cpptestcli executable. */
+    additionalParams: string;
+
     /* Command line pattern for running C/C++test. */
     commandLinePattern: string
 }
@@ -86,7 +89,8 @@ export class AnalysisRunner
             replace('${testConfig}', `${runOptions.testConfig}`).
             replace('${reportDir}', `${runOptions.reportDir}`).
             replace('${reportFormat}', `${runOptions.reportFormat}`).
-            replace('${input}', `${runOptions.input}`);
+            replace('${input}', `${runOptions.input}`).
+            replace('${additionalParams}', `${runOptions.additionalParams}`);
 
         return commandLine;
     }
@@ -94,6 +98,7 @@ export class AnalysisRunner
     private createEnvironment() : NodeJS.ProcessEnv
     {
         const environment: NodeJS.ProcessEnv = {};
+        environment['PARASOFT_SARIF_XSL'] = pt.join(__dirname, "sarif.xsl");
         let isEncodingVariableDefined = false;
         for (const varName in process.env) {
             if (Object.prototype.hasOwnProperty.call(process.env, varName)) {

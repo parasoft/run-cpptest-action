@@ -22,6 +22,7 @@ async function run() {
             reportDir: core.getInput("reportDir", { required: false }),
             reportFormat: core.getInput("reportFormat", { required: false }),
             input: core.getInput("input", { required: false }),
+            additionalParams: core.getInput("additionalParams", { required: false }),
             commandLinePattern: core.getInput("commandLinePattern", { required: false }),
         };
         core.info(messages_1.messages.run_started + runOptions.workingDir);
@@ -119,11 +120,13 @@ class AnalysisRunner {
             replace('${testConfig}', `${runOptions.testConfig}`).
             replace('${reportDir}', `${runOptions.reportDir}`).
             replace('${reportFormat}', `${runOptions.reportFormat}`).
-            replace('${input}', `${runOptions.input}`);
+            replace('${input}', `${runOptions.input}`).
+            replace('${additionalParams}', `${runOptions.additionalParams}`);
         return commandLine;
     }
     createEnvironment() {
         const environment = {};
+        environment['PARASOFT_SARIF_XSL'] = pt.join(__dirname, "sarif.xsl");
         let isEncodingVariableDefined = false;
         for (const varName in process.env) {
             if (Object.prototype.hasOwnProperty.call(process.env, varName)) {

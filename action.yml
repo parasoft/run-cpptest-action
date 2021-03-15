@@ -32,10 +32,14 @@ inputs:
     description: 'Input scope for analysis - usually cpptestscan.bdf or compile_commands.json.'
     required: false
     default: 'cpptestscan.bdf'
+  additionalParams:
+    description: 'Additional parameters for cpptestcli executable.'
+    required: false
+    default: ''
   commandLinePattern:
     description: 'Command line pattern for running C/C++test.'
     required: false 
-    default: '${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}"'
+    default: '${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}'
 runs:
   using: 'node12'
   main: 'dist/index.js'
