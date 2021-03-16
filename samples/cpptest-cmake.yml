@@ -27,6 +27,9 @@ jobs:
       uses: parasoft/run-cpptest-action@0.1.7-alpha
       with:
         input: build/compile_commands.json
+        # Uncomment for C/C++test 2020.2 to generate SARIF report:
+        # reportFormat: xml,html,custom
+        # additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     - name: Upload results (Sarif)
       uses: github/codeql-action/upload-sarif@v1

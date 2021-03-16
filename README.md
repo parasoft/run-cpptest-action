@@ -29,10 +29,13 @@ Depending on the project type and the build system used (Make, CMake, etc.), you
 The following examples show simple workflows made up of one job "Analyze project with C/C++test" for Make and CMake based projects. The example assumes that C/C++test is run on a self-hosted runner and the path to `cpptestcli` executable is available on `$PATH`.
 
 ### Uploading Analysis Results to GitHub
-By default, the `Run C/C++test` action generates analysis reports in SARIF, XML and HTML format.
+By default, the `Run C/C++test` action generates analysis reports in SARIF, XML and HTML format (see also: [Enabling SARIF reports for older versions of C/C++test](#enabling-sarif-reports-for-older-versions-of-cctest)).
 
 When you upload the SARIF report to GitHub, the results will be presented as GitHub code scanning alerts. This allows you to review the results of code analysis with Parasoft C/C++test directly on GitHub as part of your project.
 To upload the SARIF report to GitHub, modify your workflow to add the `upload-sarif` action.
+
+
+
 
 You can also upload other reports (XML, HTML) to GitHub and link them with your workflow by using the `upload-artifact` action.
 
@@ -85,6 +88,9 @@ jobs:
       with:
         # For CMake-based projects, use compile_commands.json file as the input to analysis. 
         input: build/compile_commands.json
+        # Uncomment for C/C++test 2020.2 to generate SARIF report:
+        # reportFormat: xml,html,custom
+        # additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Upload analysis results in SARIF format, so they are available as GitHub code scanning alerts.
     - name: Upload results (SARIF)
@@ -142,6 +148,10 @@ jobs:
     - name: Run C/C++test
       # Use dedicated 'run-cpptest-action' GitHub Action.
       uses: parasoft/run-cpptest-action@1.0.0
+      # Uncomment for C/C++test 2020.2 to generate SARIF report:
+      # with:
+      #   reportFormat: xml,html,custom
+      #   additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 
     # Upload analysis results in SARIF format, so they are available as GitHub code scanning alerts.
     - name: Upload results (SARIF)
@@ -201,6 +211,17 @@ In order to run analysis, C/C++test needs to be configured for specific compiler
   uses: parasoft/run-cpptest-action@1.0.0
   with:
     compilerConfig: 'clang_10_0'
+```
+
+#### Enabling SARIF reports for older versions of C/C++test
+Ability to generate SARIF reports is available for C/C++test 2021.1 or newer.
+For older versions, the following customization will enable SARIF-format reporting:
+```yaml
+- name: Run C/C++test
+  uses: parasoft/run-cpptest-action@1.0.0
+  with:
+    reportFormat: xml,html,custom
+    additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 ```
 
 ## Optional Parameters
