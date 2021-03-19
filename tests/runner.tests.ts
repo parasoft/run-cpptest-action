@@ -62,10 +62,11 @@ suite('run-cpptest-action/runner', function() {
         });
         sandbox.replace(cp, 'spawn', cpSpawn);
         
-        const expectedCommandLine = 'cpptestcli -compiler "gcc_9-64" -config "builtin://Recommended Rules" -property report.format=xml -report "reportDir" -module . -input "cpptest.bdf" -property key=value';
+        const expectedCommandLine = '"/opt/parasoft/cpptest/cpptestcli" -compiler "gcc_9-64" -config "builtin://Recommended Rules" -property report.format=xml -report "reportDir" -module . -input "cpptest.bdf" -property key=value';
         const theRunner = new runner.AnalysisRunner()
         await theRunner.run(
             {
+                installDir: '/opt/parasoft/cpptest',
                 compilerConfig: 'gcc_9-64',
                 testConfig: 'builtin://Recommended Rules',
                 reportDir: 'reportDir',
