@@ -1,5 +1,8 @@
 # Run C/C++test Action
 
+[![Build](https://github.com/parasoft/run-cpptest-action/actions/workflows/build.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/build.yml)
+[![CodeQL](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml)
+
 This action enables you to run code analysis with Parasoft C/C++test and review analysis results directly on GitHub.
 
 Parasoft C/C++test uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, unit testing, and more, to help you verify code quality and ensure compliance with industry standards.
