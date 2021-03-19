@@ -2,6 +2,7 @@
 
 [![Build](https://github.com/parasoft/run-cpptest-action/actions/workflows/build.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/build.yml)
 [![CodeQL](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml)
+[![Test](https://github.com/parasoft/run-cpptest-action/actions/workflows/test.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/test.yml)
 
 This action enables you to run code analysis with Parasoft C/C++test and review analysis results directly on GitHub.
 
