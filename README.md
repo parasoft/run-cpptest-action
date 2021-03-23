@@ -4,7 +4,7 @@
 [![CodeQL](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/codeql-analysis.yml)
 [![Test](https://github.com/parasoft/run-cpptest-action/actions/workflows/test.yml/badge.svg)](https://github.com/parasoft/run-cpptest-action/actions/workflows/test.yml)
 
-This action enables you to run code analysis with Parasoft C/C++test and review analysis results directly on GitHub.
+This action enables you to run code analysis with Parasoft C/C++test Standard and review analysis results directly on GitHub. See also [Using Action with C/C++test Professional](#using-action-with-cctest-professional) for additional customizations for C/C++test Professional.
 
 Parasoft C/C++test uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, unit testing, and more, to help you verify code quality and ensure compliance with industry standards.
  - Request [a free trial](https://www.parasoft.com/products/parasoft-c-ctest/try/) to receive access to Parasoft C/C++test's features and capabilities.
@@ -173,7 +173,7 @@ jobs:
 ```
 ## Configuring Analysis with C/C++test
 You can configure analysis with Parasoft C/C++test in the following ways:
- - By customizing the `Run C/C++test` action directly in your GitHub workflow. See [Optional Parameters](#optional-parameters) for a complete list of available parameters.
+ - By customizing the `Run C/C++test` action directly in your GitHub workflow. See [Action Parameters](#action-parameters) for a complete list of available parameters.
  - By configuring options directly in Parasoft C/C++test tool. See [Parasoft C/C++test User Guide](https://docs.parasoft.com/display/CPPTEST20202/Configuration+1) for details. Hint: create `cpptestcli.properties` file with all the customization options and put the file into the code analysis working directory (usually, the root location of your repository) - C/C++test will automatically read all the options from that file.
 
 ### Examples
@@ -228,7 +228,7 @@ For older versions, the following customization will enable SARIF-format reporti
     additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 ```
 
-## Optional Parameters
+## Action Parameters
 The following inputs are available for this action:
 | Input | Description |
 | --- | --- |
@@ -241,3 +241,39 @@ The following inputs are available for this action:
 | `input` | Input scope for analysis - usually `cpptestscan.bdf` or `compile_commands.json` (depending on a project type and build system). Default value is `cpptestscan.bdf`.|
 | `additionalParams` | Additional parameters for cpptestcli executable.|
 | `commandLinePattern` | Command line pattern for running C/C++test. It should be modified for advanced scenarios only. Default value: `${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}`|
+
+## Using Action with C/C++test Professional
+This section describes some workflow customizations that could be applied to use `Run C/C++test` action with Parasoft C/C++test Professional.
+
+### Updating Command Line for C/C++test Professional
+Use `commandLinePattern` parameter to modify the command line for `cpptestcli` executable - the actual command line pattern will depend on your project / workspace set-up. Example:
+```yaml
+- name: Run C/C++test
+  uses: parasoft/run-cpptest-action@1.0.0
+    # C/C++test workspace will be created in '../workspace'.
+    # C/C++test will create a new project based on the provided .bdf file.
+    commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+```
+Note: `compilerConfig` and `reportFormat` action parameters are not directly applicable to C/C++test Professional command line.
+
+### Using Additional Configuration Options
+Create `config.properties` file with additional configuration options for C/C++test Professional (e.g. reporting options, compiler configuration etc.) Then, pass the configuration file to `cpptestcli` using `-localsettings config.properties` option:
+```yaml
+- name: Run C/C++test
+  uses: parasoft/run-cpptest-action@1.0.0
+    # C/C++test will use options from 'config.properties'.
+    additionalParams: '-localsettings config.properties'
+    commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
+```
+### Enabling SARIF Reports for C/C++test Professional
+For C/C++test 2021.1 or newer, add the following line into `config.properties` file:
+```
+report.format=sarif
+```
+For older versions, the following options should be added to `config.properties` file:
+```
+report.format=custom
+report.custom.extension=sarif
+report.custom.xsl.file=${PARASOFT_SARIF_PRO_XSL}
+report.location_details=true
+```

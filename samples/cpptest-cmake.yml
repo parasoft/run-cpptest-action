@@ -24,7 +24,7 @@ jobs:
       run: cmake --build build
 
     - name: Run C/C++test
-      uses: parasoft/run-cpptest-action@0.1.7-alpha
+      uses: parasoft/run-cpptest-action@1.0.0
       with:
         input: build/compile_commands.json
         # Uncomment for C/C++test 2020.2 to generate SARIF report:
