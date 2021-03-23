@@ -9,7 +9,7 @@
     "watch": "tsc -watch -p ./",
     "lint": "eslint --ext .ts .",
     "test": "nyc mocha -u tdd -r ts-node/register 'tests/**/*.ts'",
-    "package": "ncc build --license licenses.txt && copyfiles --flat ./src/messages/*.json ./dist/messages && copyfiles --flat ./samples/sarif.xsl ./dist",
+    "package": "ncc build --license licenses.txt && copyfiles --flat ./src/messages/*.json ./dist/messages && copyfiles --flat ./samples/*.xsl ./dist",
     "clean": "rimraf dist",
     "all": "npm run clean && npm run compile && npm run lint && npm run test && npm run package"
   },

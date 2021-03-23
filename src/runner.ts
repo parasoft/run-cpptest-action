@@ -99,6 +99,7 @@ export class AnalysisRunner
     {
         const environment: NodeJS.ProcessEnv = {};
         environment['PARASOFT_SARIF_XSL'] = pt.join(__dirname, "sarif.xsl");
+        environment['PARASOFT_SARIF_PRO_XSL'] = pt.join(__dirname, "sarif-pro.xsl");
         let isEncodingVariableDefined = false;
         for (const varName in process.env) {
             if (Object.prototype.hasOwnProperty.call(process.env, varName)) {
