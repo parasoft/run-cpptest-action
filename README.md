@@ -250,6 +250,7 @@ Use `commandLinePattern` parameter to modify the command line for `cpptestcli` e
 ```yaml
 - name: Run C/C++test
   uses: parasoft/run-cpptest-action@1.0.0
+  with:
     # C/C++test workspace will be created in '../workspace'.
     # C/C++test will create a new project based on the provided .bdf file.
     commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
@@ -261,6 +262,7 @@ Create `config.properties` file with additional configuration options for C/C++t
 ```yaml
 - name: Run C/C++test
   uses: parasoft/run-cpptest-action@1.0.0
+  with:
     # C/C++test will use options from 'config.properties'.
     additionalParams: '-localsettings config.properties'
     commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
