@@ -1,27 +1,42 @@
-name: C/C++test Professional with Make
+# This is a basic workflow to help you get started with the Run C/C++test action
+# for Make-based project for C/C++test Professional.
+name: C/C++test with Make
 
 on:
+  # Triggers the workflow on push or pull request events but only for the master branch.
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
-  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
   run-cpptest-make:
     name: Analyze project with C/C++test
 
+    # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
 
+    # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
+
+    # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout code
       uses: actions/checkout@v2
-      
+    
+    # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
+    # Be sure 'cpptesttrace' is available on $PATH.
     - name: Build project
       run: cpptesttrace make clean all
 
+    # Runs code analysis with C/C++test.
     - name: Run C/C++test
+      # Use the 'run-cpptest-action' GitHub action.
       uses: parasoft/run-cpptest-action@1.0.0
+      with:
         # To enable SARIF reporting, put additional configuration entries into config.properties file:
         # - for C/C++test 2021.1 or newer - using built-in SARIF reporting:
         #   report.format=sarif
@@ -33,11 +48,13 @@ jobs:
         additionalParams: '-localsettings config.properties'
         commandLinePattern: '${cpptestcli} -data ../workspace -config "${testConfig}" -report "${reportDir}" -bdf "${input}" ${additionalParams}'
 
-    - name: Upload results (Sarif)
+    # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
+    - name: Upload results (SARIF)
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: reports/report.sarif
- 
+    
+    # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       uses: actions/upload-artifact@v2
       with:

@@ -1,4 +1,4 @@
-name: 'Run C/C++test'
+name: 'Run Parasoft C/C++test'
 description: 'A GitHub Action for running Parasoft C/C++test analysis.'
 author: 'Parasoft'
 branding:
