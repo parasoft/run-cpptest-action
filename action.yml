@@ -1,12 +1,12 @@
-name: 'Run C/C++test'
-description: 'A GitHub Action for running Parasoft C/C++test analysis.'
+name: 'Run Parasoft C/C++test'
+description: 'A GitHub Action for analyzing code with Parasoft C/C++test to ensure code quality and compliance with MISRA, AUTOSAR, CERT, and more.'
 author: 'Parasoft'
 branding:
   icon: 'aperture'
   color: 'blue'
 inputs:
   installDir:
-    description: 'Installation folder of Parasoft C/C++test. If not specified, cpptestcli executable will be searched on $PATH.'
+    description: 'Installation folder of Parasoft C/C++test. If not specified, the cpptestcli executable must be added to $PATH.'
     required: false
   workingDir:
     description: 'Working directory for running C/C++test.'
@@ -17,23 +17,23 @@ inputs:
     required: false
     default: 'gcc_9-64' 
   testConfig:
-    description: 'Test configuration to be used when running code analysis.'
+    description: 'Test configuration to be used for code analysis.'
     required: false
     default: 'builtin://Recommended Rules'
   reportDir:
-    description: 'Output folder for analysis reports.'
+    description: 'Output folder for reports from code analysis.'
     required: false
     default: 'reports'
   reportFormat:
-    description: 'Format of analysis reports.'
+    description: 'Format of reports from code analysis.'
     required: false
     default: 'xml,html,sarif'
   input:
-    description: 'Input scope for analysis - usually cpptestscan.bdf or compile_commands.json.'
+    description: 'Input scope for analysis (typically, cpptestscan.bdf or compile_commands.json, depending on the project type and the build system).'
     required: false
     default: 'cpptestscan.bdf'
   additionalParams:
-    description: 'Additional parameters for cpptestcli executable.'
+    description: 'Additional parameters for the cpptestcli executable.'
     required: false
     default: ''
   commandLinePattern:
