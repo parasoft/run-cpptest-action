@@ -33,7 +33,7 @@ Depending on the project type and the build system you are using (Make, CMake, e
 The following examples show simple workflows made up of one job "Analyze project with C/C++test" for Make and CMake-based projects. The example assumes that C/C++test is run on a self-hosted runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
 ### Uploading Analysis Results to GitHub
-By default, the `Run C/C++test` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a C/C++test version earlier than 2021.1, see [Generating SARIF Reports with C/C++test 2020.2 or Earlier](#generating-sarif-reports-with-cctest-2020.2-or-earlier)).
+By default, the `Run C/C++test` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a C/C++test version earlier than 2021.1, see [Generating SARIF Reports with C/C++test 2020.2 or Earlier](#generating-sarif-reports-with-cctest-20202-or-earlier)).
 
 When you upload the SARIF report to GitHub, the results will be presented as GitHub code scanning alerts. This allows you to review the results of code analysis with Parasoft C/C++test directly on GitHub as part of your project.
 To upload the SARIF report to GitHub, modify your workflow by adding the `upload-sarif` action.
