@@ -1,5 +1,5 @@
 name: 'Run Parasoft C/C++test'
-description: 'A GitHub Action for analyzing code with Parasoft C/C++test to ensure code quality and compliance with MISRA, AUTOSAR, CERT, and more.'
+description: 'A GitHub Action for running Parasoft C/C++test to ensure code quality and compliance with MISRA, AUTOSAR, CERT, and more.'
 author: 'Parasoft'
 branding:
   icon: 'aperture'
