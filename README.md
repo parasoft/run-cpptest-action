@@ -26,11 +26,9 @@ This action requires Parasoft C/C++test with a valid Parasoft license.
 We recommend that you run Parasoft C/C++test on a self-hosted rather than GitHub-hosted runner.
 
 ### Adding the Run C/C++test Action to a GitHub Workflow
-Adding the `Run C/C++test` action to your workflow allows you to launch code analysis with Parasoft C/C++test.
+Add the `Run C/C++test` action to your workflow to launch code analysis with Parasoft C/C++test.
 
 Depending on the project type and the build system you are using (Make, CMake, etc.), you may need to adjust the workflow to collect the required input data for C/C++test. See the [C/C++test User Guide](https://docs.parasoft.com/display/CPPTEST20202/Running+Static+Analysis+1) for details.
-
-The following examples show simple workflows made up of one job "Analyze project with C/C++test" for Make and CMake-based projects. The example assumes that C/C++test is run on a self-hosted runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
 ### Uploading Analysis Results to GitHub
 By default, the `Run C/C++test` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a C/C++test version earlier than 2021.1, see [Generating SARIF Reports with C/C++test 2020.2 or Earlier](#generating-sarif-reports-with-cctest-20202-or-earlier)).
@@ -41,6 +39,8 @@ To upload the SARIF report to GitHub, modify your workflow by adding the `upload
 To upload reports in other formats, modify your workflow by adding  the `upload-artifact` action.
 
 ### Examples
+The following examples show simple workflows made up of one job "Analyze project with C/C++test" for Make and CMake-based projects. The examples assume that C/C++test is run on a self-hosted runner and the path to the `cpptestcli` executable is available on `$PATH`.
+
 #### Run C/C++test with CMake project
 
 ```yaml
