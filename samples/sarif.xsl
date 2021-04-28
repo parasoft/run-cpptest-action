@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Source: sarif.xsl c94ddf10184 -->
+<!-- Source: sarif.xsl f9c38ca4716 -->
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://icl.com/saxon" extension-element-prefixes="saxon">
     
     <xsl:output method="text" encoding="UTF-8" omit-xml-declaration="yes" indent="no" media-type="application/json" />
@@ -38,7 +38,8 @@
     
     <xsl:template name="rules_category">
         <xsl:param name="parentTags"/>
-        <xsl:variable name="tags" saxon:assignable="yes" select="concat($qt,@desc,$qt)"/>
+        <xsl:variable name="category_desc"><xsl:call-template name="escape_illegal_chars"><xsl:with-param name="text" select="@desc" /></xsl:call-template></xsl:variable>
+        <xsl:variable name="tags" saxon:assignable="yes" select="concat($qt,$category_desc,$qt)"/>
         <xsl:if test="string-length($parentTags) > 0">
             <saxon:assign name="tags" select="concat($parentTags,', ',$tags)"/>
         </xsl:if>
@@ -289,7 +290,7 @@
     
     <xsl:template name="artifact_location">
         <xsl:text>"artifactLocation": { "uri": "</xsl:text>
-        
+           
         <xsl:variable name="uri" saxon:assignable="yes" />
         <xsl:variable name="locRef" select="@locRef"/>
         <xsl:variable name="locNode" select="/ResultsSession/Scope/Locations/Loc[@locRef=$locRef]"/>

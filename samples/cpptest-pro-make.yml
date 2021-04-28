@@ -35,7 +35,7 @@ jobs:
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@1.0.0
+      uses: parasoft/run-cpptest-action@1.0.1
       with:
         # To enable SARIF reporting, put additional configuration entries into config.properties file:
         # - for C/C++test 2021.1 or newer - using built-in SARIF reporting:
