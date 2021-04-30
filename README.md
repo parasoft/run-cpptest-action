@@ -49,11 +49,11 @@ The following examples show simple workflows made up of one job "Analyze project
 name: C/C++test with CMake
 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch.
+  # Triggers the workflow on push or pull request events but only for the master (main) branch.
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
@@ -116,11 +116,11 @@ jobs:
 name: C/C++test with Make
 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch.
+  # Triggers the workflow on push or pull request events but only for the master (main) branch.
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
