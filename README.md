@@ -12,6 +12,13 @@ Parasoft C/C++test uses a comprehensive set of analysis techniques, including pa
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft C/C++test and other Parasoft products.
 
+- [Quick start](#quick-start)
+- [Example Workflows](#example-workflows)
+- [Configuring Analysis with C/C++test](#configuring-analysis-with-cctest)
+- [Action Parameters](#action-parameters)
+- [Customizing the Action to Run C/C++test Professional](#customizing-the-action-to-run-cctest-professional)
+
+
 ## Quick start
 
 To analyze your code with Parasoft C/C++test and review analysis results on GitHub, you need to customize your GitHub workflow to include:
@@ -30,15 +37,44 @@ Add the `Run C/C++test` action to your workflow to launch code analysis with Par
 
 Depending on the project type and the build system you are using (Make, CMake, etc.), you may need to adjust the workflow to collect the required input data for C/C++test. See the [C/C++test User Guide](https://docs.parasoft.com/display/CPPTEST20202/Running+Static+Analysis+1) for details.
 
+```yaml
+# Runs code analysis with C/C++test.
+- name: Run C/C++test
+  uses: parasoft/run-cpptest-action@1.0.1
+  with:
+    input: build/compile_commands.json
+    testConfig: 'builtin://MISRA C 2012'
+    compilerConfig: 'clang_10_0'
+```
+
 ### Uploading Analysis Results to GitHub
 By default, the `Run C/C++test` action generates analysis reports in the SARIF, XML, and HTML format (if you are using a C/C++test version earlier than 2021.1, see [Generating SARIF Reports with C/C++test 2020.2 or Earlier](#generating-sarif-reports-with-cctest-20202-or-earlier)).
 
 When you upload the SARIF report to GitHub, the results will be presented as GitHub code scanning alerts. This allows you to review the results of code analysis with Parasoft C/C++test directly on GitHub as part of your project.
 To upload the SARIF report to GitHub, modify your workflow by adding the `upload-sarif` action.
 
+```yaml
+# Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
+- name: Upload results (SARIF)
+  if: always()
+  uses: github/codeql-action/upload-sarif@v1
+  with:
+    sarif_file: reports/report.sarif
+```
+
 To upload reports in other formats, modify your workflow by adding  the `upload-artifact` action.
 
-### Examples
+```yaml
+# Uploads an archive that includes all report files (.xml, .html, .sarif).
+- name: Archive reports
+  if: always()
+  uses: actions/upload-artifact@v2
+  with:
+    name: CpptestReports
+    path: reports/*.*
+```
+
+## Example Workflows
 The following examples show simple workflows made up of one job "Analyze project with C/C++test" for Make and CMake-based projects. The examples assume that C/C++test is run on a self-hosted runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
 #### Run C/C++test with CMake project
@@ -105,7 +141,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: Static analysis reports
+        name: CpptestReports
         path: reports/*.*
 
 ```
@@ -168,7 +204,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: Static analysis reports
+        name: CpptestReports
         path: reports/*.*
 
 ```
