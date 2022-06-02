@@ -57,7 +57,7 @@ To upload the SARIF report to GitHub, modify your workflow by adding the `upload
 # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
 - name: Upload results (SARIF)
   if: always()
-  uses: github/codeql-action/upload-sarif@v1
+  uses: github/codeql-action/upload-sarif@v2
   with:
     sarif_file: reports/report.sarif
 ```
@@ -132,7 +132,7 @@ jobs:
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
       if: always()
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: reports/report.sarif
     
@@ -195,7 +195,7 @@ jobs:
     # Uploads analysis results in the SARIF format, so that they are displayed as GitHub code scanning alerts.
     - name: Upload results (SARIF)
       if: always()
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: reports/report.sarif
     
