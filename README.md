@@ -68,7 +68,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
   if: always()
-  uses: actions/upload-artifact@v2
+  uses: actions/upload-artifact@v3
   with:
     name: CpptestReports
     path: reports/*.*
@@ -107,7 +107,7 @@ jobs:
 
     # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # Configures your CMake project. Be sure the compile_commands.json file is created.
     - name: Configure project
@@ -139,7 +139,7 @@ jobs:
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: CpptestReports
         path: reports/*.*
@@ -176,7 +176,7 @@ jobs:
 
     # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
@@ -202,7 +202,7 @@ jobs:
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: CpptestReports
         path: reports/*.*
@@ -263,6 +263,26 @@ Generating reports in the SARIF format is available in C/C++test since version 2
     reportFormat: xml,html,custom
     additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 ```
+
+#### Baselining Static Analysis Results
+In GitHub static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented, allowing developers to focus on the relevant problems for their code changes. 
+For this baselining to succeed, make sure your static analysis workflow triggers for pull requests. For example:
+```yaml
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch.
+  pull_request:
+    branches: [ main ]
+```
+
+##### Defining the Branch Protection Rule
+If you want the merge to be blocked and the pull request to be rejected when there are violations or errors, follow the procedure below:
+1. In the GitHub repository GUI, go to **Settings>Branches**.
+1. Make sure your default integration branch is configured. If needed, select the appropriate branch in the **Default branch** section.
+1. Define the branch protection rule. In the **Branch protection rule** section click **Add rule**. Enable the **Require status checks to pass before merging** option and specify which steps in the pipeline should block the merge. Type the status check name in the search field to select it (only the status checks run during the last week are listed).
+ - You can specify that the merge will be blocked if any violations are found as a result of the analysis by selecting the appropriate GitHub Code Scanning tool. If the GitHub Code Scanning tool is not available, you need to run a pull request for the integration branch first.
+ - You can specify that the merge will be blocked if any defined job is not completed because of errors in its configuration by selecting the job build name. If no jobs are available, you need to run a workflow from the integration branch first. For example, when you execute the default C/C+test pipeline, the 'Analyze project with C/C++test' job will be available and can be used as a status check.
+ 
+  If a pull request is blocked due to failed checks, the administrator can still manually perform the merge using the **Merge without waiting for requirements to be met** option.
 
 ## Action Parameters
 The following inputs are available for this action:
