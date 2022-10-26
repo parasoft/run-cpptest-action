@@ -264,8 +264,8 @@ Generating reports in the SARIF format is available in C/C++test since version 2
     additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
 ```
 
-#### Baselining Static Analysis Results
-In GitHub static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented, allowing developers to focus on the relevant problems for their code changes. 
+#### Baselining Static Analysis Results in Pull Requests
+In GitHub, when a pull request is created, static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented, allowing developers to focus on the relevant problems for their code changes. 
 For this baselining to succeed, make sure your static analysis workflow triggers for pull requests. For example:
 ```yaml
 on:
@@ -275,7 +275,7 @@ on:
 ```
 
 ##### Defining the Branch Protection Rule
-If you want the merge to be blocked and the pull request to be rejected when there are violations or errors, follow the procedure below:
+You can define a branch protection rule for your integration branch that will block pull requests due to new violations or errors. To configure this:
 1. In the GitHub repository GUI, go to **Settings>Branches**.
 1. Make sure your default integration branch is configured. If needed, select the appropriate branch in the **Default branch** section.
 1. Define the branch protection rule. In the **Branch protection rule** section click **Add rule**. Enable the **Require status checks to pass before merging** option and specify which steps in the pipeline should block the merge. Type the status check name in the search field to select it (only the status checks run during the last week are listed).
