@@ -40,7 +40,7 @@ Depending on the project type and the build system you are using (Make, CMake, e
 ```yaml
 # Runs code analysis with C/C++test.
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     input: build/compile_commands.json
     testConfig: 'builtin://MISRA C 2012'
@@ -120,7 +120,7 @@ jobs:
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@1.0.1
+      uses: parasoft/run-cpptest-action@2.0.0
       # Optional parameters for 'run-cpptest-action'.
       with:
         # For CMake-based projects, use a compile_commands.json file as the input for analysis. 
@@ -186,7 +186,7 @@ jobs:
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@1.0.1
+      uses: parasoft/run-cpptest-action@2.0.0
       # Uncomment if you are using C/C++test 2020.2 to generate a SARIF report:
       # with:
       #   reportFormat: xml,html,custom
@@ -221,7 +221,7 @@ If `cpptestcli` executable is not on `$PATH`, you can configure the path to the 
 
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     installDir: '/opt/parasoft/cpptest'
 ```
@@ -230,7 +230,7 @@ If `cpptestcli` executable is not on `$PATH`, you can configure the path to the 
 You can configure the `input` parameter to provide the path to a file that defines the scope of analysis (includes a list of source files and compile commands). This parameter depends on the project type and the build system you are using. See the  [C/C++test User Guide](https://docs.parasoft.com/display/CPPTEST20222/Running+Static+Analysis+1) for details.
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     input: 'build/compile_commands.json'
 ```
@@ -240,7 +240,7 @@ Code analysis with C/C++test is performed by using a test configuration - a set 
 To specify a test configuration directly in your workflow, add the `testConfig` parameter to the `Run C/C++test` action and specify the URL of the test configuration you want to use:
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     testConfig: 'builtin://MISRA C 2012'
 ```
@@ -249,7 +249,7 @@ To specify a test configuration directly in your workflow, add the `testConfig` 
 In order to run analysis, C/C++test needs to be configured for a specific compiler. You need to specify the configuration that matches your compiler with the `compilerConfig` parameter. See [Supported Compilers](https://docs.parasoft.com/display/CPPTEST20222/Supported+Compilers) for information about supported compilers.
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     compilerConfig: 'clang_10_0'
 ```
@@ -258,7 +258,7 @@ In order to run analysis, C/C++test needs to be configured for a specific compil
 Generating reports in the SARIF format is available in C/C++test since version 2021.1. If you are using an earlier C/C++test version, you need to customize the `Run C/C++test` action to enable generating SARIF reports:
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     reportFormat: xml,html,custom
     additionalParams: '-property report.custom.extension=sarif -property report.custom.xsl.file=${PARASOFT_SARIF_XSL}'
@@ -305,7 +305,7 @@ This section describes how to customize the `Run C/C++test` action to run code a
 Use the `commandLinePattern` parameter to modify the command line for `cpptestcli` executable. The command line pattern depends on your project and the setup of the workspace. Example:
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     # C/C++test workspace will be created in '../workspace'.
     # C/C++test will create a new project based on the provided .bdf file.
@@ -317,7 +317,7 @@ Note: The `compilerConfig` and `reportFormat` action parameters are not directly
 Create a `config.properties` file with additional configuration options for C/C++test Professional, such as reporting options, compiler configuration etc. Then pass the configuration file to `cpptestcli` with the `-localsettings config.properties` option:
 ```yaml
 - name: Run C/C++test
-  uses: parasoft/run-cpptest-action@1.0.1
+  uses: parasoft/run-cpptest-action@2.0.0
   with:
     # C/C++test will use options from 'config.properties'.
     additionalParams: '-localsettings config.properties'

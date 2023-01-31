@@ -41,5 +41,5 @@ inputs:
     required: false 
     default: '${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

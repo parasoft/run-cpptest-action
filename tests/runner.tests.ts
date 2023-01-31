@@ -19,7 +19,7 @@ suite('run-cpptest-action/runner', function() {
         const fsExistsSync = sandbox.fake.returns(false);
         sandbox.replace(fs, 'existsSync', fsExistsSync);
 
-        let runnerError : string | undefined;
+        let runnerError: string | Error | undefined | unknown;
         const incorrectWorkindDir = '/incorrect/working/dir';
         
         try {
@@ -36,8 +36,7 @@ suite('run-cpptest-action/runner', function() {
         const fsExistsSync = sandbox.fake.returns(true);
         sandbox.replace(fs, 'existsSync', fsExistsSync);
 
-        let runnerError : string | undefined;
-        
+        let runnerError: string | Error | undefined | unknown;
         try {
             const theRunner = new runner.AnalysisRunner()
             await theRunner.run({ commandLinePattern : ''} as runner.RunOptions);
@@ -59,7 +58,7 @@ suite('run-cpptest-action/runner', function() {
             on: function(_event: string, action : any) {
                 action();
             }
-        });
+        } as any);
         sandbox.replace(cp, 'spawn', cpSpawn);
         
         const expectedCommandLine = '"/opt/parasoft/cpptest/cpptestcli" -compiler "gcc_9-64" -config "builtin://Recommended Rules" -property report.format=xml -report "reportDir" -module . -input "cpptest.bdf" -property key=value';
