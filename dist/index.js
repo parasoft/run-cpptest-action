@@ -53,7 +53,7 @@ class AnalysisRunner {
             (_b = cliProcess.stderr) === null || _b === void 0 ? void 0 : _b.on('data', (data) => { core.info(`${data}`.replace(/\s+$/g, '')); });
             cliProcess.on('close', (code) => {
                 const result = {
-                    exitCode: code ? code : 150 // 150 = signal received
+                    exitCode: (code != null) ? code : 150 // 150 = signal received
                 };
                 resolve(result);
             });
