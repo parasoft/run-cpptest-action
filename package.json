@@ -40,7 +40,7 @@
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "@vercel/ncc": "^0.29.2",
+    "@vercel/ncc": "^0.36.1",
     "chai": "^4.3.7",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
