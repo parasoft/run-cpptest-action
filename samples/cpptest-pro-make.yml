@@ -17,6 +17,14 @@ jobs:
   run-cpptest-make:
     name: Analyze project with C/C++test
 
+    # Specifies required permissions for upload-sarif action
+    permissions:
+      # required for all workflows
+      security-events: write
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+
     # Specifies the type of runner that the job will run on.
     runs-on: self-hosted
 
@@ -35,7 +43,7 @@ jobs:
     # Runs code analysis with C/C++test.
     - name: Run C/C++test
       # Use the 'run-cpptest-action' GitHub action.
-      uses: parasoft/run-cpptest-action@2.0.0
+      uses: parasoft/run-cpptest-action@2.0.1
       with:
         # To enable SARIF reporting, put additional configuration entries into config.properties file:
         # - for C/C++test 2021.1 or newer - using built-in SARIF reporting:

@@ -1,6 +1,6 @@
 {
   "name": "run-cpptest-action",
-  "version": "0.0.1b",
+  "version": "2.0.1",
   "private": true,
   "description": "A GitHub Action for running Parasoft C/C++test analysis",
   "main": "lib/main.js",
