@@ -1,6 +1,6 @@
 {
   "name": "run-cpptest-action",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "description": "A GitHub Action for running Parasoft C/C++test analysis",
   "main": "lib/main.js",
@@ -29,14 +29,14 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
-    "@actions/github": "^5.1.1",
+    "@actions/github": "^6.0.0",
     "@actions/http-client": "1.0.11",
     "@actions/io": "^1.1.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^16.18.11",
+    "@types/node": "^20.12.12",
     "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
@@ -46,10 +46,10 @@
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "fs-extra": "^10.1.0",
-    "mocha": "^9.2.2",
+    "mocha": "^10.4.0",
     "nyc": "^15.1.0",
     "sinon": "^15.0.1",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.9.2",
     "typescript": "^4.9.4",
     "typescript-eslint": "0.0.1-alpha.0"
   }
