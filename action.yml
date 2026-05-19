@@ -40,6 +40,9 @@ inputs:
     description: 'Command line pattern for running C/C++test.'
     required: false 
     default: '${cpptestcli} -compiler "${compilerConfig}" -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -module . -input "${input}" ${additionalParams}'
+outputs:
+  exitCode:
+    description: 'Exit code from the C/C++test analysis run.'
 runs:
   using: 'node20'
   main: 'dist/index.js'
