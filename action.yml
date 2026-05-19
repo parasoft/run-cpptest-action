@@ -43,6 +43,8 @@ inputs:
 outputs:
   exitCode:
     description: 'Exit code from the C/C++test analysis run.'
+  hasViolations:
+    description: 'Whether static analysis violations were found.'
 runs:
   using: 'node20'
   main: 'dist/index.js'
