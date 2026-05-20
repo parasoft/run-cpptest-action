@@ -68,7 +68,7 @@ To upload reports in other formats, modify your workflow by adding  the `upload-
 # Uploads an archive that includes all report files (.xml, .html, .sarif).
 - name: Archive reports
   if: always()
-  uses: actions/upload-artifact@v4
+  uses: actions/upload-artifact@v7
   with:
     name: CpptestReports
     path: reports/*.*
@@ -115,7 +115,7 @@ jobs:
 
     # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # Configures your CMake project. Be sure the compile_commands.json file is created.
     - name: Configure project
@@ -147,7 +147,7 @@ jobs:
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: CpptestReports
         path: reports/*.*
@@ -192,7 +192,7 @@ jobs:
 
     # Checks out your repository under $GITHUB_WORKSPACE, so that your job can access it.
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     
     # Builds your Make project using 'cpptesttrace' to collect input data for code analysis.
     # Be sure 'cpptesttrace' is available on $PATH.
@@ -218,7 +218,7 @@ jobs:
     # Uploads an archive that includes all report files (.xml, .html, .sarif).
     - name: Archive reports
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: CpptestReports
         path: reports/*.*
