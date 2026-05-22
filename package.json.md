@@ -20,12 +20,6 @@ Adding `"serialize-javascript": "^7.0.5"` directly as a devDependency creates a 
 - npm cannot satisfy both constraints simultaneously
 - Using overrides avoids this resolution conflict
 
-### Result
-- Runtime vulnerabilities: 0 (clean)
-- Dev vulnerabilities: 2 low (remaining diff package in Mocha - acceptable since tests only)
-- Tests: All passing (9/9)
-- Coverage: 94.29%
-
 ### References
 - npm overrides: https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides
 - CVE-2022-24785: https://github.com/advisories/GHSA-rpfv-r67r-2h3j
