@@ -38,11 +38,9 @@ suite('run-cpptest-action/main', function() {
         await main.run();
 
         assert(coreSetFailed.notCalled);
-        assert(coreSetOutput.calledTwice);
+        assert(coreSetOutput.calledOnce);
         assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
         assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
-        assert.strictEqual(coreSetOutput.args[1][0], 'hasViolations');
-        assert.strictEqual(coreSetOutput.args[1][1], 'false');
         assert(coreInfo.calledTwice);
         assert.strictEqual(coreInfo.args[1][0], messages.exit_code + `${runnerExitCode}`);
     });
@@ -55,11 +53,9 @@ suite('run-cpptest-action/main', function() {
         await main.run();
 
         assert(coreSetFailed.calledOnce);
-        assert(coreSetOutput.calledTwice);
+        assert(coreSetOutput.calledOnce);
         assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
         assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
-        assert.strictEqual(coreSetOutput.args[1][0], 'hasViolations');
-        assert.strictEqual(coreSetOutput.args[1][1], 'true');
         assert.strictEqual(coreSetFailed.args[0][0], messages.failed_run_non_zero + `${runnerExitCode}`);
     });
 
@@ -71,11 +67,9 @@ suite('run-cpptest-action/main', function() {
         await main.run();
 
         assert(coreSetFailed.calledOnce);
-        assert(coreSetOutput.calledTwice);
+        assert(coreSetOutput.calledOnce);
         assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
         assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
-        assert.strictEqual(coreSetOutput.args[1][0], 'hasViolations');
-        assert.strictEqual(coreSetOutput.args[1][1], 'false');
         assert.strictEqual(coreSetFailed.args[0][0], messages.failed_run_non_zero + `${runnerExitCode}`);
     });
 

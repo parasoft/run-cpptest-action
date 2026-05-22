@@ -2950,9 +2950,7 @@ async function run() {
         core.info(messages_1.messages.run_started + runOptions.workingDir);
         const theRunner = new runner.AnalysisRunner();
         const outcome = await theRunner.run(runOptions);
-        const hasViolations = (outcome.exitCode & 2) === 2;
         core.setOutput("exitCode", outcome.exitCode.toString());
-        core.setOutput("hasViolations", hasViolations.toString());
         if (outcome.exitCode != 0) {
             core.setFailed(messages_1.messages.failed_run_non_zero + outcome.exitCode);
         }
