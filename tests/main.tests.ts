@@ -13,6 +13,7 @@ suite('run-cpptest-action/main', function() {
     let coreSetFailed : sinon.SinonSpy;
     let coreInfo : sinon.SinonSpy;
     let coreError : sinon.SinonSpy;
+    let coreSetOutput : sinon.SinonSpy;
 
     setup(function() {
         coreSetFailed = sandbox.fake();
@@ -21,6 +22,8 @@ suite('run-cpptest-action/main', function() {
         sandbox.replace(core, 'info', coreInfo);
         coreError = sandbox.fake();
         sandbox.replace(core, 'error', coreError);
+        coreSetOutput = sandbox.fake();
+        sandbox.replace(core, 'setOutput', coreSetOutput);
     });
 
     teardown(function() {
@@ -35,6 +38,9 @@ suite('run-cpptest-action/main', function() {
         await main.run();
 
         assert(coreSetFailed.notCalled);
+        assert(coreSetOutput.calledOnce);
+        assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
+        assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
         assert(coreInfo.calledTwice);
         assert.strictEqual(coreInfo.args[1][0], messages.exit_code + `${runnerExitCode}`);
     });
@@ -47,6 +53,23 @@ suite('run-cpptest-action/main', function() {
         await main.run();
 
         assert(coreSetFailed.calledOnce);
+        assert(coreSetOutput.calledOnce);
+        assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
+        assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
+        assert.strictEqual(coreSetFailed.args[0][0], messages.failed_run_non_zero + `${runnerExitCode}`);
+    });
+
+    test('Run with exit code non-0 and bit 2 not set', async function() {
+        const runnerExitCode = 1;
+        const runnerRun = sandbox.fake.resolves( { exitCode: runnerExitCode } );
+        sandbox.replace(runner.AnalysisRunner.prototype, 'run', runnerRun);
+
+        await main.run();
+
+        assert(coreSetFailed.calledOnce);
+        assert(coreSetOutput.calledOnce);
+        assert.strictEqual(coreSetOutput.args[0][0], 'exitCode');
+        assert.strictEqual(coreSetOutput.args[0][1], `${runnerExitCode}`);
         assert.strictEqual(coreSetFailed.args[0][0], messages.failed_run_non_zero + `${runnerExitCode}`);
     });
 
