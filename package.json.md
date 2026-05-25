@@ -22,4 +22,3 @@ Adding `"serialize-javascript": "^7.0.5"` directly as a devDependency creates a 
 
 ### References
 - npm overrides: https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides
-- CVE-2022-24785: https://github.com/advisories/GHSA-rpfv-r67r-2h3j
